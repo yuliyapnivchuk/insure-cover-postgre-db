@@ -4,8 +4,7 @@ import json
 from sqlalchemy import create_engine
 
 def get_data_json() -> list:
-  # code_list = ['a', 'b', 'c', 'd', 'g', 'h', 'j', 'l', 'm', 'n', 'p', 'r', 's']
-  code_list = ['a']
+  code_list = ['a', 'b', 'c', 'd', 'g', 'h', 'j', 'l', 'm', 'n', 'p', 'r', 's']
 
   result = []
   for code in code_list:
@@ -52,7 +51,7 @@ def transform_ids_to_int(df: pd.DataFrame) -> pd.DataFrame:
 def insert_to_db(user, password, host, port, database, df, table_name):
   connection_string = f'postgresql://{user}:{password}@{host}:{port}/{database}'
   engine = create_engine(connection_string)
-  df.to_sql(name=table_name, con=engine, if_exists='replace', index=False)
+  df.to_sql(name=table_name, con=engine, if_exists='append', index=False)
 
 
 json_data_list = get_data_json()
