@@ -32,6 +32,36 @@ CREATE TABLE medicines (
     atc_code_id INTEGER REFERENCES atc_classification(id)
 );
 
+CREATE TABLE company (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+); 
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    company VARCHAR(255) NOT NULL
+); 
+
+CREATE TABLE agreements (
+    id SERIAL PRIMARY KEY,
+    agr_number VARCHAR(50) NOT NULL,
+    company_id INTEGER REFERENCES company(id)
+); 
+
+CREATE TABLE excludedICD (
+    id SERIAL PRIMARY KEY,
+    agr_number INTEGER REFERENCES agreements(id),
+    not_covered_icd_code INTEGER REFERENCES icd10_classification(id)
+); 
+
+CREATE TABLE excludedATC (
+    id SERIAL PRIMARY KEY,
+    agr_number INTEGER REFERENCES agreements(id),
+    not_covered_atc_code INTEGER REFERENCES atc_classification(id)
+);
+
 INSERT INTO icd10_categories (code, category_name)
 VALUES
     ('A00-B99', 'ДЕЯКІ ІНФЕКЦІЙНІ ТА ПАРАЗИТАРНІ ХВОРОБИ'),
