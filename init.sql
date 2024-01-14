@@ -28,8 +28,9 @@ CREATE TABLE atc_classification (
 
 CREATE TABLE medicines (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL UNIQUE,
-    atc_code_id INTEGER REFERENCES atc_classification(id)
+    name VARCHAR(255) NOT NULL,
+    atc_code_id INTEGER REFERENCES atc_classification(id), 
+    error VARCHAR(255)
 );
 
 CREATE TABLE company (
